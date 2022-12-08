@@ -22,7 +22,11 @@ class GridBox:
     self.items = []
 
   def check_score(self, score):
-    print('test')
+    print("ok")
+
+
+
+  
        
             
 
