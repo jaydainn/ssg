@@ -38,27 +38,26 @@ class Person:
     def strategy1(self):
         if(self.x % 2 == 0 and self.y < 4 and self.y > 0):
             self.est()
-        elif(self.x % 2 == 1 and self.y< 4 and self.y>0):
+        elif(self.x % 2 == 1 and self.y < 4 and self.y > 0):
             self.ouest()
         elif(self.y == 0 or self.y == 4):
             self.sud()
 
     def strategy2(self):
-        if(self.x % 2 == 0 and self.y< 4 and self.y>0):
+        if(self.x % 2 == 0 and self.y< 4 and self.y > 0):
             self.ouest()
-        elif(self.x % 2 == 1 and self.y< 4 and self.y>0):
+        elif(self.x % 2 == 1 and self.y< 4 and self.y > 0):
             self.est()
         elif(self.y == 0 or self.y == 4):
             self.sud()
 
     def strategy3(self):
-        if(self.x % 2 == 0 and self.y< 4 and self.y>0):
+        if(self.x % 2 == 0 and self.y < 4 and self.y > 0):
             self.ouest()
-        elif(self.x % 2 == 1 and self.y< 4 and self.y>0):
+        elif(self.x % 2 == 1 and self.y < 4 and self.y > 0):
             self.est()
         elif(self.y == 0 or self.y == 4):
             self.nord()
-
 
     # Se déplacer vers le haut
     def nord(self):
