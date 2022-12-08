@@ -1,40 +1,76 @@
+import math
 import numpy as np
-import matplotlib.pyplot as plt
+import random
 
-# Define the parameters for the simulation
-num_criminals = 2
-probabilities = [0.3, 0.4]
-payoff_matrix = [[[10, 0], [0, 5]], [[5, 0], [0, 10]]]
 
-# Define a function to calculate the payoffs for each criminal
-def calculate_payoffs(probabilities, payoff_matrix):
-    payoffs = []
-    for i in range(num_criminals):
-        criminal_probability = probabilities[i]
-        criminal_payoff = 0
-        for j in range(num_criminals):
-            opponent_probability = probabilities[j]
-            criminal_payoff += payoff_matrix[i][j][int(opponent_probability > criminal_probability)]
-        payoffs.append(criminal_payoff)
-    return payoffs
+nbpicks = 1 
+nbpolice = 1 
+nbcivil = 3
 
-# Initialize the list of payoffs for each criminal
-payoffs = []
 
-# Iterate over each criminal and calculate their optimal probability
-for i in range(num_criminals):
-    # Calculate the payoffs for each criminal based on their current probabilities
-    current_payoffs = calculate_payoffs(probabilities , payoff_matrix)
-    payoffs.append(current_payoffs)
+class Character:
+  def __init__(self, x, y, type):
+    self.x = x
+    self.y = y
+    self.type = type
 
-    # Calculate the optimal probability for the current criminal
-    criminal_probabilities = probabilities[i]
-    max_payoff = max(current_payoffs)
-    optimal_probability = criminal_probabilities[current_payoffs.index(max_payoff)]
 
-    # Update the probabilities of the current criminal
-    probabilities[i] = optimal_probability
+class GridBox:
+  def __init__(self, x, y):
+    self.x = x
+    self.y = y
+    self.items = []
 
-# Visualize the results
-plt.plot(payoffs)
-plt.show()
+  def check_score(self, score):
+    print('test')
+       
+            
+
+
+
+
+class Grid:
+  def __init__(self):
+    self.items = []
+    self.score = np.zeros(2)
+    for i in range (5):
+        for j in range(5):
+          self.items.append(GridBox(i , j ))
+    for i in range(nbcivil):
+        r = int(random.randint(0 , 24))
+        self.items[r].items.append(Character(self.items[r].x , self.items[r].y , 1))
+
+    for i in range(nbpolice):
+        r = int(random.randint(0 , 24))
+        self.items[r].items.append(Character(self.items[r].x , self.items[r].y , 2))
+    
+    for i in range(nbpicks):
+        r = int(random.randint(0 , 24))
+        self.items[r].items.append(Character(self.items[r].x , self.items[r].y , 3))
+
+  def display(self):
+    displaygrid = np.zeros( (5 , 5) )
+    for i in range(24):
+        x = self.items[i].x
+        y = self.items[i].y
+        tp = 0 
+        if len(self.items[i].items) > 0 : 
+            tp = self.items[i].items[0].type
+        displaygrid[x][y] = tp
+    print(displaygrid)
+        
+
+
+
+
+    
+
+ 
+    
+
+grid = Grid()
+
+grid.display()
+
+
+
