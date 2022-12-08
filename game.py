@@ -34,7 +34,7 @@ num_pick = 1
 
 history = []
 
-Q = np.zeros(2)
+Q = np.zeros(4)
 
 
 positions_civils = []
@@ -66,8 +66,16 @@ for i in  range(15):
           for k in range(n):
                if(grid[j][k] != 0 ):
                     if(j < (n-1) and k < (n-1)):
-                         direction = random.randint(1 , 4)
-                         if(direction == 1 ):
+
+                         if(grid[j][k] == 2):
+                              if((grid[j][k+1] == 3 and grid[j][k] == 2)  or (grid[j][k+1] == 2 and grid[j][k] == 3)):
+                                        Q[0] += 1 
+                                        grid[j][k+1] = 2
+                                        grid[j][k] = 0 
+                         else:
+                              
+                          direction = random.randint(1 , 4)
+                          if(direction == 1 ):
                               if(grid [j + 1][k] == 0 ):
                                    grid[j + 1 ][k] = grid[j][k]
                                    grid[j][k] = 0 
@@ -80,7 +88,7 @@ for i in  range(15):
                                         Q[1] += 1 
                                         grid[j+1][k] = 3
                                         grid[j][k] = 0
-                         elif(direction == 2):
+                          elif(direction == 2):
                               if(grid [j - 1][k] == 0 ):
                                    grid[j - 1 ][k] = grid[j][k]
                                    grid[j][k] = 0 
@@ -93,7 +101,7 @@ for i in  range(15):
                                         Q[1] += 1 
                                         grid[j-1][k] = 3
                                         grid[j][k] = 0
-                         elif(direction == 3):
+                          elif(direction == 3):
                               if(grid [j][k+1] == 0 ):
                                    grid[j][k+1] = grid[j][k]
                                    grid[j][k] = 0 
@@ -106,7 +114,7 @@ for i in  range(15):
                                         Q[1] += 1 
                                         grid[j][k+1] = 3
                                         grid[j][k] = 0
-                         elif(direction == 4):
+                          elif(direction == 4):
                               if(grid [j][k-1] == 0 ):
                                    grid[j][k-1] = grid[j][k]
                                    grid[j][k] = 0 
