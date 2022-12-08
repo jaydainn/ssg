@@ -1,10 +1,6 @@
 # ******************************************************
 # @author: Jeremy Dain, Ethan Postic et Lemuel Falret
 # ******************************************************
-#
-# police: 2 
-# civil: 1
-# pickpocket: 3
 
 import random
 from typing import List
