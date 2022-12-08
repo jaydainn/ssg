@@ -102,16 +102,16 @@ PICK = "Pick"
 n = 5
 personnages : List[Person] = []
 
+num_police = 1
+police1 = Person(POLICIER, 0, 0, n)
+personnages.append(police1)
+
 num_civil = 3
 for i in range(num_civil):
     x =  random.randint(0, n - 1)
     y =  random.randint(0, n - 1)
     civil = Person(CIVIL, x, y, n)
     personnages.append(civil)
-
-num_police = 1
-police1 = Person(POLICIER, 0, 0, n)
-personnages.append(police1)
 
 num_pick = 1
 x_pick =  random.randint(0, n - 1)
@@ -135,6 +135,7 @@ for i in range(nb_tour):
 
     for perso1 in personnages:
         for perso2 in personnages:
+            #Ne gère pas les cas où trois personne sont sur la même case mais comme le policier est instancié avant le pickpocket, le pickpocket se fera attrapé avant qu'il ai le temps de voler 
             if perso1.etat == True and perso2.etat == True and perso1 != perso2 and same_position(perso1, perso2):
                 #POLICIER / PICK
                 if perso1.poste == POLICIER and perso2.poste == PICK:
