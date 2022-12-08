@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+
+    <style>
+        .grid-container {
+            display: grid;
+            grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto auto;
+            background-color: #2196F3;
+            padding: 10px;
+        }
+
+        .grid-item {
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            font-size: 30px;
+            text-align: center;
+        }
+    </style>
+
+    <div>
+        <input  onchange="updateTable(this.value);" id="rge" type="range" min="0" max="50" value="0"/>
+    </div>
+    <div class="grid-container">
+        <div  class="grid-item">1</div>
+        <div  class="grid-item">2</div>
+        <div  class="grid-item">3</div>
+        <div  class="grid-item">4</div>
+        <div  class="grid-item">5</div>
+        <div  class="grid-item">6</div>
+        <div  class="grid-item">7</div>
+        <div  class="grid-item">8</div>
+        <div  class="grid-item">9</div>
+        <div  class="grid-item">10</div>
+        <div  class="grid-item">11</div>
+        <div  class="grid-item">12</div>
+        <div  class="grid-item">1</div>
+        <div  class="grid-item">2</div>
+        <div  class="grid-item">3</div>
+        <div  class="grid-item">4</div>
+        <div  class="grid-item">5</div>
+        <div  class="grid-item">6</div>
+        <div  class="grid-item">7</div>
+        <div  class="grid-item">8</div>
+        <div  class="grid-item">9</div>
+        <div  class="grid-item">10</div>
+        <div  class="grid-item">11</div>
+        <div  class="grid-item">12</div>
+        <div  class="grid-item">1</div>
+        <div  class="grid-item">2</div>
+        <div  class="grid-item">3</div>
+        <div  class="grid-item">4</div>
+        <div  class="grid-item">5</div>
+        <div  class="grid-item">6</div>
+        <div  class="grid-item">7</div>
+        <div  class="grid-item">8</div>
+        <div  class="grid-item">9</div>
+        <div  class="grid-item">10</div>
+        <div  class="grid-item">11</div>
+        <div  class="grid-item">12</div>
+        <div  class="grid-item">1</div>
+        <div class="grid-item">2</div>
+        <div class="grid-item">3</div>
+        <div class="grid-item">4</div>
+        <div class="grid-item">5</div>
+        <div class="grid-item">6</div>
+        <div class="grid-item">7</div>
+        <div class="grid-item">8</div>
+        <div class="grid-item">9</div>
+        <div class="grid-item">10</div>
+        <div class="grid-item">11</div>
+        <div class="grid-item">12</div>
+        <div class="grid-item">1</div>
+        <div class="grid-item">2</div>
+        <div class="grid-item">3</div>
+        <div class="grid-item">4</div>
+        <div class="grid-item">5</div>
+        <div class="grid-item">6</div>
+        <div class="grid-item">7</div>
+        <div class="grid-item">8</div>
+        <div class="grid-item">9</div>
+        <div class="grid-item">10</div>
+        <div class="grid-item">11</div>
+        <div class="grid-item">12</div>
+        <div class="grid-item">1</div>
+        <div class="grid-item">2</div>
+        <div class="grid-item">3</div>
+        <div class="grid-item">4</div>
+        <div class="grid-item">5</div>
+        <div class="grid-item">6</div>
+        <div class="grid-item">7</div>
+        <div class="grid-item">8</div>
+        <div class="grid-item">9</div>
+        <div class="grid-item">10</div>
+        <div class="grid-item">11</div>
+        <div class="grid-item">12</div>
+        <div class="grid-item">1</div>
+        <div class="grid-item">2</div>
+        <div class="grid-item">3</div>
+        <div class="grid-item">4</div>
+        <div class="grid-item">5</div>
+        <div class="grid-item">6</div>
+        <div class="grid-item">7</div>
+        <div class="grid-item">8</div>
+        <div class="grid-item">9</div>
+        <div class="grid-item">10</div>
+        <div class="grid-item">11</div>
+        <div class="grid-item">12</div>
+        <div class="grid-item">1</div>
+        <div class="grid-item">2</div>
+        <div class="grid-item">3</div>
+        <div class="grid-item">4</div>
+        <div class="grid-item">5</div>
+        <div class="grid-item">6</div>
+        <div class="grid-item">7</div>
+        <div class="grid-item">8</div>
+        <div class="grid-item">9</div>
+        <div class="grid-item">10</div>
+        <div class="grid-item">11</div>
+        <div class="grid-item">12</div>
+        <div class="grid-item">1</div>
+        <div class="grid-item">2</div>
+        <div class="grid-item">3</div>
+        <div class="grid-item">4</div>
+        <div class="grid-item">5</div>
+        <div class="grid-item">6</div>
+        <div class="grid-item">7</div>
+        <div class="grid-item">8</div>
+        <div class="grid-item">9</div>
+        <div class="grid-item">10</div>
+        <div class="grid-item">11</div>
+        <div class="grid-item">12</div>
+        <div class="grid-item">1</div>
+        <div class="grid-item">2</div>
+        <div class="grid-item">3</div>
+        <div class="grid-item">4</div>
+        <div class="grid-item">5</div>
+        <div class="grid-item">6</div>
+        <div class="grid-item">7</div>
+        <div class="grid-item">8</div>
+        <div class="grid-item">9</div>
+        <div class="grid-item">10</div>
+        <div class="grid-item">11</div>
+        <div class="grid-item">12</div>
+        <div class="grid-item">1</div>
+        <div class="grid-item">2</div>
+        <div class="grid-item">3</div>
+        <div class="grid-item">4</div>
+        <div class="grid-item">5</div>
+        <div class="grid-item">6</div>
+        <div class="grid-item">7</div>
+        <div class="grid-item">8</div>
+        <div class="grid-item">9</div>
+        <div class="grid-item">10</div>
+        <div class="grid-item">11</div>
+        <div class="grid-item">12</div>
+        <div class="grid-item">1</div>
+        <div class="grid-item">2</div>
+        <div class="grid-item">3</div>
+        <div class="grid-item">4</div>
+        <div class="grid-item">5</div>
+        <div class="grid-item">6</div>
+        <div class="grid-item">7</div>
+        <div class="grid-item">8</div>
+        <div class="grid-item">9</div>
+        <div class="grid-item">10</div>
+        <div class="grid-item">11</div>
+        <div class="grid-item">12</div>
+
+    </div>
+    <script  type="text/javascript" src="simulation.js"></script>
+    <script>
+       document.getElementById("rge").setAttribute("max" , data.length - 1)
+       let els = document.getElementsByClassName("grid-item")
+       
+       function updateTable(a){
+        document.getElementById("rge").setAttribute("value" , a)
+        let val = parseInt(document.getElementById("rge").getAttribute("value"))
+        console.log(val)
+        grid = data[val]
+       for( let i = 0 ;i< 12 ; i++){
+        for(let j = 0 ;j <12 ; j++){
+            //console.log((i * 12) +  j)
+
+            switch(grid[i][j]){
+                case 0 : els[(i * 12) +  j].innerHTML =  ""; els[(i * 12) +  j].style.backgroundImage="url(cinder.jpg)"; els[(i * 12) +  j].style.backgroundSize="cover"; break; 
+                case 1: els[(i * 12) +  j].innerHTML =  ""; els[(i * 12) +  j].style.backgroundImage="url(person.jpg)";els[(i * 12) +  j].style.backgroundSize="cover"; break;
+                case 2: els[(i * 12) +  j].innerHTML =  ""; els[(i * 12) +  j].style.backgroundImage="url(police.jpg)";els[(i * 12) +  j].style.backgroundSize="cover"; break;
+                case 3: els[(i * 12) +  j].innerHTML =  ""; els[(i * 12) +  j].style.backgroundImage="url(thief.jpg)"; els[(i * 12) +  j].style.backgroundSize="cover"; break;
+                default:
+            }
+            els[(i * 12) +  j].innerHTML =  grid[i][j]
+        }
+       }
+       }
+
+       updateTable(0)
+    </script>
+
+</body>
+
+
+
+</html>
