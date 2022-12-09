@@ -22,6 +22,7 @@ class Person:
         self.y = y #colonne
         self.n = n
         self.etat = True
+        self.score = 0
 
     def random_deplacement(self):
         direction = random.choice(["nord", "sud", "ouest", "est"])
@@ -98,6 +99,9 @@ def same_position(perso1, perso2):
 def is_policier(perso):
     return perso.poste == POLICIER
 
+def is_pick(perso):
+    return perso.poste == PICK
+
 CIVIL = "Civil"
 POLICIER = "Policier"
 PICK = "Pick"
@@ -158,20 +162,20 @@ for i in range(nb_tour):
             if perso1.etat == True and perso2.etat == True and perso1 != perso2 and same_position(perso1, perso2):
                 #POLICIER / PICK
                 if perso1.poste == POLICIER and perso2.poste == PICK:
-                    Q[0] += 1
+                    perso1.score += 1
                     perso2.etat = False
                 #PICK / POLICIER
                 if perso1.poste == PICK and perso2.poste == POLICIER:
-                    Q[0] += 1
+                    perso2.score += 1
                     perso1.etat = False
 
                 #CIVIL / PICK
                 if perso1.poste == CIVIL and perso2.poste == PICK:
-                    Q[1] += 1
+                    perso2.score += 1
                     perso1.etat = False
                 #PICK / CIVIL
                 if perso1.poste == PICK and perso2.poste == CIVIL:
-                    Q[1] += 1
+                    perso1.score += 1
                     perso2.etat = False
 
     for personne in personnages:
@@ -186,6 +190,18 @@ for i in range(nb_tour):
 
     print()
 
-print(Q)
+score_policier = 0
+score_pick = 0
+for personne in personnages:
+    if is_policier(personne) or is_pick(personne):
+        print(personne.poste, personne.score)
+
+    if is_policier(personne):
+        score_policier += personne.score
+    if is_pick(personne):
+        score_pick += personne.score
+
+print("Score des Policiers :", score_policier)
+print("Score des Pick :", score_pick)
 print()
 print(history)
