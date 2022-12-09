@@ -81,14 +81,15 @@ class Person:
 
 def afficher_grille(n, personnages):
     for x in range(n):
-        ligne = ""
+        lignes = []
         for y in range(n):
-            ligne += "| "
+            ligne = []
             for personne in personnages:
                 if personne.etat == True and personne.x == x and personne.y == y:
-                    ligne += personne.poste[:2] + ","
+                    ligne.append(personne.poste[:2])
+            lignes.append(ligne)
 
-        print(ligne + "|")
+        print(lignes)
 
 def same_position(perso1, perso2):
     if perso1.x == perso2.x and perso1.y == perso2.y:
@@ -135,7 +136,7 @@ for i in range(nb_tour):
 
     for perso1 in personnages:
         for perso2 in personnages:
-            #Ne gère pas les cas où trois personne sont sur la même case mais comme le policier est instancié avant le pickpocket, le pickpocket se fera attrapé avant qu'il ai le temps de voler 
+            #Le cas où les trois postes sont sur la même case, le pickpocket se fera attrapé avant qu'il ai le temps de voler 
             if perso1.etat == True and perso2.etat == True and perso1 != perso2 and same_position(perso1, perso2):
                 #POLICIER / PICK
                 if perso1.poste == POLICIER and perso2.poste == PICK:
