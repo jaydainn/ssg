@@ -95,11 +95,13 @@ def afficher_grille(n, personnages):
 
 n = 5
 personnages : List[Person] = []
+positions_civils = []
 
 num_civil = 3
 for i in range(num_civil):
     x =  random.randint(0, n - 1)
     y =  random.randint(0, n - 1)
+    positions_civils.append([x , y])
     civil = Person("Civil", x, y, n)
     personnages.append(civil)
 
@@ -107,9 +109,12 @@ num_police = 1
 police1 = Person("Police", 0, 0, n)
 personnages.append(police1)
 
+
+positions_civils = np.array(positions_civils)
+
 num_pick = 1
-x_pick =  random.randint(0, n - 1)
-y_pick =  random.randint(0, n - 1)
+x_pick =  math.floor(positions_civils[: , 0].mean())
+y_pick =  math.floor(positions_civils[: , 1].mean())
 pick1 = Person("Pick", x_pick, y_pick, n)
 personnages.append(pick1)
 
