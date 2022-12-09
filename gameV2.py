@@ -12,6 +12,8 @@ from collections import deque
 import progressbar
 import math
 from collections import defaultdict
+from tqdm import tqdm
+from time import sleep
 
 # from tensorflow.keras import Model, Sequential
 # from tensorflow.keras.layers import Dense, Embedding, Reshape
@@ -23,7 +25,6 @@ from collections import defaultdict
 
 
 Q = np.zeros((3 , 3))
-
 
 
 
@@ -127,7 +128,7 @@ def jeu(strat):
     num_police = 1
     strategie = strat
     for i in range(num_police):
-        print(strategie)
+        #print(strategie)
         x = 0
         y = 0
         if (strategie == 2):
@@ -178,7 +179,7 @@ def jeu(strat):
     history = []
     nb_tour = 25
     for i in range(nb_tour):
-        afficher_grille(n, personnages)
+        #afficher_grille(n, personnages)
 
         str_list = []
         for personne in personnages:
@@ -218,22 +219,21 @@ def jeu(strat):
             elif strategie == 3:
                 personne.strategy3()
 
-        print()
+        #print()
 
     score_policier = 0
     score_pick = 0
     for personne in personnages:
-        if is_policier(personne) or is_pick(personne):
-            print(personne.poste, personne.score)
+        
 
         if is_policier(personne):
             score_policier += personne.score
         if is_pick(personne):
             score_pick += personne.score
 
-    print("Score des Policiers :", score_policier)
-    print("Score des Pick :", score_pick)
-    print()
+    #print("Score des Policiers :", score_policier)
+    #print("Score des Pick :", score_pick)
+    #print()
     #print(history)
 
     
@@ -249,7 +249,9 @@ def qLearning(Q, num_episodes, discount_factor = 0.8,
     
     prev_action = 1
     state = 1
-    for ith_episode in range(num_episodes):
+    
+    for ith_episode in tqdm(range(num_episodes)):
+        
         score_pol , score_pick= jeu(prev_action)
         if ((score_pol/1) - (score_pick/2)) > 0:
             state = 0
@@ -265,7 +267,7 @@ def qLearning(Q, num_episodes, discount_factor = 0.8,
 
 
             
-            
+            #on utilise epsilon pour separer la phase d'exploration et d'exploitation
             if random.random() > epsilon: 
                 action = np.argmax(Q[state])
             else:
@@ -301,5 +303,6 @@ def qLearning(Q, num_episodes, discount_factor = 0.8,
     return Q
 
 
-Q = qLearning(Q , 1000)
+Q = qLearning(Q , 100000)
+print()
 print(Q)
