@@ -104,8 +104,20 @@ n = 5
 personnages : List[Person] = []
 
 num_police = 1
-police1 = Person(POLICIER, 0, 0, n)
-personnages.append(police1)
+for i in range(num_police):
+    strategie = random.choice([1, 2, 3])
+
+    x = 0
+    y = 0
+    if (strategie == 2):
+        x = 0
+        y = n-1
+    elif (strategie == 3):
+        x = n-1
+        y = 0
+    
+    police = Person(POLICIER, 0, 0, n)
+    personnages.append(police)
 
 num_civil = 3
 for i in range(num_civil):
@@ -115,15 +127,14 @@ for i in range(num_civil):
     personnages.append(civil)
 
 num_pick = 1
-x_pick =  random.randint(0, n - 1)
-y_pick =  random.randint(0, n - 1)
-pick1 = Person(PICK, x_pick, y_pick, n)
-personnages.append(pick1)
-
-history = []
+for i in range(num_pick):
+    x_pick = random.randint(0, n - 1)
+    y_pick = random.randint(0, n - 1)
+    pick = Person(PICK, x_pick, y_pick, n)
+    personnages.append(pick)
 
 Q = np.zeros(2)
-
+history = []
 nb_tour = 15
 for i in range(nb_tour):
     afficher_grille(n, personnages)
