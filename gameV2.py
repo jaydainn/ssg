@@ -18,8 +18,8 @@ import math
 class Person:
     def __init__(self, poste, x, y, n):
         self.poste = poste
-        self.x = x
-        self.y = y
+        self.x = x #ligne
+        self.y = y #colonne
         self.n = n
         self.etat = True
 
@@ -35,49 +35,50 @@ class Person:
         elif direction == "est":
             self.est()
 
-    def strategy1(self):
-        if(self.x % 2 == 0 and self.y < 4 and self.y > 0):
+    def strategy1(self):       
+        if(self.x % 2 == 0 and self.y < n-1):
             self.est()
-        elif(self.x % 2 == 1 and self.y < 4 and self.y > 0):
+        elif(self.x % 2 == 1 and self.y > 0):
             self.ouest()
-        elif(self.y == 0 or self.y == 4):
+        elif(self.x % 2 == 0 and self.y == n-1 or self.x % 2 == 1 and self.y == 0):
             self.sud()
 
     def strategy2(self):
-        if(self.x % 2 == 0 and self.y< 4 and self.y > 0):
+        if(self.x % 2 == 0 and self.y > 0):
             self.ouest()
-        elif(self.x % 2 == 1 and self.y< 4 and self.y > 0):
+        elif(self.x % 2 == 1 and self.y < n-1):
             self.est()
-        elif(self.y == 0 or self.y == 4):
+        elif(self.x % 2 == 0 and self.y == 0 or self.x % 2 == 1 and self.y == n-1):
             self.sud()
 
     def strategy3(self):
-        if(self.x % 2 == 0 and self.y < 4 and self.y > 0):
-            self.ouest()
-        elif(self.x % 2 == 1 and self.y < 4 and self.y > 0):
+        if(self.x % 2 == 0 and self.y < n-1):
             self.est()
-        elif(self.y == 0 or self.y == 4):
+        elif(self.x % 2 == 1 and self.y > 0):
+            self.ouest()
+        elif(self.x % 2 == 0 and self.y == n-1 or self.x % 2 == 1 and self.y == 0):
             self.nord()
 
     # Se déplacer vers le haut
     def nord(self):
-        if self.etat == True and self.y - 1 >= 0:
-            self.y -= 1
-
-    # Se déplacer vers le bas
-    def sud(self):
-        if self.etat == True and self.y + 1 < n:
-            self.y += 1
-
-    # Se déplacer vers la gauche    
-    def ouest(self):
         if self.etat == True and self.x - 1 >= 0:
             self.x -= 1
 
-    # Se déplacer vers la droite
-    def est(self):
+    # Se déplacer vers le bas
+    def sud(self):
         if self.etat == True and self.x + 1 < n:
             self.x += 1
+
+    # Se déplacer vers la gauche
+    def ouest(self):
+        if self.etat == True and self.y - 1 >= 0:
+            self.y -= 1   
+
+    # Se déplacer vers la droite
+    def est(self):
+        if self.etat == True and self.y + 1 < n:
+            self.y += 1
+
 
 def afficher_grille(n, personnages):
     for x in range(n):
@@ -92,10 +93,10 @@ def afficher_grille(n, personnages):
         print(lignes)
 
 def same_position(perso1, perso2):
-    if perso1.x == perso2.x and perso1.y == perso2.y:
-        return True
-    
-    return False
+    return perso1.x == perso2.x and perso1.y == perso2.y
+
+def is_policier(perso):
+    return perso.poste == POLICIER
 
 CIVIL = "Civil"
 POLICIER = "Policier"
@@ -103,10 +104,11 @@ PICK = "Pick"
 n = 5
 personnages : List[Person] = []
 
+#Initialisation des policiers
 num_police = 1
+strategie = random.choice([1, 2, 3])
 for i in range(num_police):
-    strategie = random.choice([1, 2, 3])
-
+    print(strategie)
     x = 0
     y = 0
     if (strategie == 2):
@@ -116,26 +118,31 @@ for i in range(num_police):
         x = n-1
         y = 0
     
-    police = Person(POLICIER, 0, 0, n)
+    police = Person(POLICIER, x, y, n)
     personnages.append(police)
 
+#Initialisation des civils
+positions_civils = []
 num_civil = 3
 for i in range(num_civil):
     x =  random.randint(0, n - 1)
     y =  random.randint(0, n - 1)
+    positions_civils.append([x , y])
     civil = Person(CIVIL, x, y, n)
     personnages.append(civil)
+positions_civils = np.array(positions_civils)
 
+#Initialisation des pickpockets
 num_pick = 1
 for i in range(num_pick):
-    x_pick = random.randint(0, n - 1)
-    y_pick = random.randint(0, n - 1)
-    pick = Person(PICK, x_pick, y_pick, n)
+    x =  math.floor(positions_civils[: , 0].mean())
+    y =  math.floor(positions_civils[: , 1].mean())
+    pick = Person(PICK, x, y, n)
     personnages.append(pick)
 
 Q = np.zeros(2)
 history = []
-nb_tour = 15
+nb_tour = 25
 for i in range(nb_tour):
     afficher_grille(n, personnages)
 
@@ -168,8 +175,17 @@ for i in range(nb_tour):
                     perso2.etat = False
 
     for personne in personnages:
-        personne.random_deplacement()
+        if not is_policier(personne):
+            personne.random_deplacement()
+        elif strategie == 1:
+            personne.strategy1()
+        elif strategie == 2:
+            personne.strategy2()
+        elif strategie == 3:
+            personne.strategy3()
 
     print()
 
+print(Q)
+print()
 print(history)
