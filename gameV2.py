@@ -15,19 +15,10 @@ from collections import defaultdict
 from tqdm import tqdm
 from time import sleep
 
-# from tensorflow.keras import Model, Sequential
-# from tensorflow.keras.layers import Dense, Embedding, Reshape
-# from tensorflow.keras.optimizers import Adam
-
-
-
-# Definition des variables utilisé
-
-
+# Definition des variables utilisées
 Q = np.zeros((3 , 3))
 
-
-
+# Création de la classe Personne
 class Person:
     def __init__(self, poste, x, y, n):
         self.poste = poste
@@ -37,6 +28,7 @@ class Person:
         self.etat = True
         self.score = 0
 
+    # Déplacement aléatoire d'un personnage
     def random_deplacement(self):
         direction = random.choice(["nord", "sud", "ouest", "est"])
 
@@ -49,6 +41,7 @@ class Person:
         elif direction == "est":
             self.est()
 
+    # Stratégie 1 du policier
     def strategy1(self):       
         if(self.x % 2 == 0 and self.y < n-1):
             self.est()
@@ -57,6 +50,7 @@ class Person:
         elif(self.x % 2 == 0 and self.y == n-1 or self.x % 2 == 1 and self.y == 0):
             self.sud()
 
+    # Stratégie 2 du policier
     def strategy2(self):
         if(self.x % 2 == 0 and self.y > 0):
             self.ouest()
@@ -65,6 +59,7 @@ class Person:
         elif(self.x % 2 == 0 and self.y == 0 or self.x % 2 == 1 and self.y == n-1):
             self.sud()
 
+    # Stratégie 3 du policier
     def strategy3(self):
         if(self.x % 2 == 0 and self.y < n-1):
             self.est()
@@ -93,7 +88,7 @@ class Person:
         if self.etat == True and self.y + 1 < n:
             self.y += 1
 
-
+# Affichage de la grille
 def afficher_grille(n, personnages):
     for x in range(n):
         lignes = []
@@ -106,12 +101,17 @@ def afficher_grille(n, personnages):
 
         print(lignes)
 
+    print()
+
+# Renvoie si deux personnages sont sur la même case
 def same_position(perso1, perso2):
     return perso1.x == perso2.x and perso1.y == perso2.y
 
+# Renvoie si le personnage est un policier
 def is_policier(perso):
     return perso.poste == POLICIER
 
+# Renvoie si le personnage est un pickpocket
 def is_pick(perso):
     return perso.poste == PICK
 
@@ -120,11 +120,10 @@ POLICIER = "Policier"
 PICK = "Pick"
 n = 5
 
-
-
 def jeu(strat):
-    #Initialisation des policiers
     personnages : List[Person] = []
+
+    # Initialisation des policiers
     num_police = 1
     strategie = strat
     for i in range(num_police):
@@ -141,9 +140,7 @@ def jeu(strat):
         police = Person(POLICIER, x, y, n)
         personnages.append(police)
 
-
-
-        #Initialisation des civils
+    # Initialisation des civils
     positions_civils = []
     num_civil = 3
 
@@ -167,14 +164,13 @@ def jeu(strat):
 
     positions_civils = np.array(positions_civils)
 
-    #Initialisation des pickpockets
-    num_pick = 1
+    # Initialisation des pickpockets
+    num_pick = 2
     for i in range(num_pick):
         x =  math.floor(positions_civils[: , 0].mean())
         y =  math.floor(positions_civils[: , 1].mean())
         pick = Person(PICK, x, y, n)
         personnages.append(pick)
-
 
     history = []
     nb_tour = 25
@@ -219,13 +215,9 @@ def jeu(strat):
             elif strategie == 3:
                 personne.strategy3()
 
-        #print()
-
     score_policier = 0
     score_pick = 0
     for personne in personnages:
-        
-
         if is_policier(personne):
             score_policier += personne.score
         if is_pick(personne):
@@ -235,18 +227,11 @@ def jeu(strat):
     #print("Score des Pick :", score_pick)
     #print()
     #print(history)
-
     
     return (score_policier , score_pick)
 
 
-
-
-
-def qLearning(Q, num_episodes, discount_factor = 0.8,
-							alpha = 0.6, epsilon = 0.4):
-	
-    
+def qLearning(Q, num_episodes, discount_factor = 0.8, alpha = 0.6, epsilon = 0.4):
     prev_action = 1
     state = 1
     
@@ -261,12 +246,8 @@ def qLearning(Q, num_episodes, discount_factor = 0.8,
             state = 2
 
         for t in itertools.count():
-            
-           
-            action = 0 
+            action = 0
 
-
-            
             #on utilise epsilon pour separer la phase d'exploration et d'exploitation
             if random.random() > epsilon: 
                 action = np.argmax(Q[state])
